@@ -11,19 +11,20 @@ package com.tdunning;
  * Newton's law is used to compute the freezer temperature over time.
  */
 public class TemperatureModel {
-    public static final double TEMP_MAX = 20;
-    public static final double TEMP_MIN = 19;
+    public static final double TEMP_MAX = -5;
+    public static final double TEMP_MIN = -6;
 
-    public static final double EXTERNAL_TEMP = 80;
-    private static final double CLOSED_THERMAL_RESISTANCE = 100000;
+    public static final double EXTERNAL_TEMP = 30;
+    private static final double CLOSED_THERMAL_RESISTANCE = 50000;
     private static final double LEAK_THERMAL_RESISTANCE = CLOSED_THERMAL_RESISTANCE / 7;
     private static final double OPEN_THERMAL_RESISTANCE = CLOSED_THERMAL_RESISTANCE / 20;
 
-    private static final double COMPRESSOR_EFFECTIVE_TEMP = -100;
+    private static final double COMPRESSOR_EFFECTIVE_TEMP = -40;
     private static final double COMPRESSOR_THERMAL_RESISTANCE = CLOSED_THERMAL_RESISTANCE / 2;
 
     private boolean compressOn = false;
     private double temp = EXTERNAL_TEMP;
+    private boolean celsius = true;
 
     public double step(DoorState door, PowerState power, double dt) {
         double effectiveTemp;
@@ -60,10 +61,23 @@ public class TemperatureModel {
         effectiveTemp /= effectiveS;
         double deltaTemp = effectiveTemp - temp;
         temp = temp + deltaTemp * (1 - Math.exp(-dt * Math.abs(deltaTemp) * effectiveS));
-        return temp;
+        return celsius ? temp : 1.8 * temp + 32;
     }
 
+    /**
+     * Sets the current temperature of the freezer.  Note that the temperature will be interpreted
+     * in whatever temperature scale is in force at the time that this is called.  Thus setting the
+     * temperature scale to Fahrenheit *after* setting the temperature may result in a surprise.
+     */
     public void setTemp(double temp) {
-        this.temp = temp;
+        if (celsius) {
+            this.temp = temp;
+        } else {
+            this.temp = (temp - 32) / 1.8;
+        }
+    }
+
+    public void setTempScale(boolean celsius) {
+        this.celsius = celsius;
     }
 }
