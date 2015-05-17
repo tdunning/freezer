@@ -4,6 +4,36 @@ anomalous behavior.  The simulator is implemented by having a micro-simulator th
 the physics of a freezer.  The simulator has physical state variables (current temperature 
 right now) and external control variables (power available, door open, door slightly open).
 
+Various parameters of the simulation such as output temperature scale (Farhenheit or Celsius),
+output format, time step and other aspects can be customized from the command line.
+
+See https://github.com/tdunning/freezer/wiki/Sample-Output for some sample output.
+
+## How to Compile and Run
+
+To compile the simulator simply do
+
+  `mvn package`
+
+This will create the stand-alone executable `target/freezer` which you can run directly on any
+machine with Java 1.7 or better.
+
+The program accepts the following command line options
+
+`-output output-file-name` - sets the output file name.  Use `-` to direct output to standard out (the default).
+
+`-fahrenheit` - sets the output temperature scale to Fahrenheit.  The default is to use Celsius.
+
+`-time` - sets the duration of the simulation.  The simulation will start on July 1, 2015 and will extend for as long as you like.  For convenience, you can use m, h, d or w to indicate units of minutes, hours, days or weeks.  The default unit is seconds.
+
+`-format` - sets the output format.  You can pick from CSV (default), TSV, JSON or JSON_LINE.  JSON wraps the entire output
+in a JSON list while JSON_LINE outputs individual JSON structures each on a line.  Pick JSON if you are pedantic about the
+output file containing strictly correct JSON, pick JSON_LINE for most other uses.
+
+`-dt` - sets the time stamp on the output.  Default is 5 seconds, but if you want to see the control actions of the temperature controller you might want to set it down to 0.25 seconds.  Many of the faults can be as short as tens of
+seconds so you probably don't want to set this too high.  Setting it larger produces less output and thus makes the 
+simulator run faster.
+
 ## Implementation
 The controlling variables are simulated by taking the union of several discrete state
 machines.  Each of these state machines generates transition events according to a 
