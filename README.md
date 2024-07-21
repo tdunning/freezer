@@ -77,7 +77,8 @@ Newton's law is used to compute the freezer temperature over time. The DOOR stat
 the thermal coupling to the outside world and the POWER state controls whether the compressor
 actually does any good.
 
-<img width="296" alt="image" src="https://github.com/user-attachments/assets/5ec69bf8-8174-4c4e-a486-a156260603fe">
+<img width="296" alt="image" src="https://github.com/user-attachments/assets/a7bf602d-dc43-4e8d-8f81-105ba956526a">
+
 
 ## Discrete Event Simulator
 The discrete time simulator maintains a priority queue of upcoming events. To advance, an event
