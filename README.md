@@ -85,3 +85,9 @@ for the simulator
 
   `nextTransition` - returns the time of the next event to be processed without changing that event.  This 
 allows other processing up to that time to be done.
+
+## The Results
+Here is some sample output. You can see where somebody left the door open.
+
+![Sample output](https://github.com/user-attachments/assets/307fadae-a2c1-400f-a1a0-3a51c3e8004d)
+
