@@ -79,8 +79,6 @@ actually does any good.
 
 <img width="296" alt="image" src="https://github.com/user-attachments/assets/5ec69bf8-8174-4c4e-a486-a156260603fe">
 
-<img width="296" alt="image" src="https://github.com/user-attachments/assets/ddd9ec54-b734-4f6e-898e-f3ec19f81070">
-
 ## Discrete Event Simulator
 The discrete time simulator maintains a priority queue of upcoming events. To advance, an event
 is popped off the queue, time is moved to the time of that event and the `run()` method is called
