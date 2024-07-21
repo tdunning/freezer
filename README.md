@@ -1,4 +1,4 @@
-# Freezer Simulator
+<img width="296" alt="image" src="https://github.com/user-attachments/assets/ddd9ec54-b734-4f6e-898e-f3ec19f81070"># Freezer Simulator
 This program simulates a freezer that has a few different kinds of normal and 
 anomalous behavior.  The simulator is implemented by having a micro-simulator that emulates
 the physics of a freezer.  The simulator has physical state variables (current temperature 
@@ -47,6 +47,8 @@ NORMAL_POWER - externalPower is 1, transition to POWER_FAIL is exponential time 
 with mean of months.
 POWER_FAIL - externalPower is 0, transition to NORMAL_POWER is mixed exponential with
 means of 1 minute and 2 hours.  90% of transitions are quick.
+<img width="261" alt="image" src="https://github.com/user-attachments/assets/8428cbdc-7943-423d-9e71-c6795b28d4fb">
+
 
 ### The Door
 The door state machine has the following states:
@@ -61,6 +63,10 @@ or LEAK (2%).
 LEAK - thermal coupling to outside world is low, but not terribly so.  Transition to open
 is same as transition from CLOSED.
 
+Here is a state diagram:
+<img width="399" alt="image" src="https://github.com/user-attachments/assets/08dcaf6a-b6dd-449c-be5f-bedfbf304045">
+
+
 ### Compressor
 The physical model involves a compressor that turns on if the temperature is > TEMP_MAX
 and the door state is CLOSED or LEAK.  The compressor turns off if the temperature is <TEMP_MIN.
@@ -70,6 +76,9 @@ environment is modeled as a heat source coupled to the freezer.  A simple implem
 Newton's law is used to compute the freezer temperature over time. The DOOR state controls
 the thermal coupling to the outside world and the POWER state controls whether the compressor
 actually does any good.
+
+<img width="296" alt="image" src="https://github.com/user-attachments/assets/5ec69bf8-8174-4c4e-a486-a156260603fe">
+
 
 ## Discrete Event Simulator
 The discrete time simulator maintains a priority queue of upcoming events. To advance, an event
@@ -85,6 +94,8 @@ for the simulator
 
   `nextTransition` - returns the time of the next event to be processed without changing that event.  This 
 allows other processing up to that time to be done.
+
+Between events the temperature is modeled using a closed form solution of Newton's equation for heat transfer.
 
 ## The Results
 Here is some sample output. You can see where somebody left the door open.
